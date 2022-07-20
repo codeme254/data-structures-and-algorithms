@@ -101,6 +101,69 @@ class SinglyLinkedList{
         node.val = newValue;
         return true;
     }
+    insert(idx, value){
+	 // Adds a node in the middle of the list at a given position
+	    console.log(`Inserting ${value}`);
+	    if (idx < 0 || idx > this.length) return false;
+	    if (idx === this.length){
+		    this.push(value);
+		    console.log(this);
+		    return true;
+	    }else if (idx === 0){
+		    this.unshift(value);
+		    console.log(this);
+		    return true;
+	    }else {
+
+	    	    let newNode = new Node(value);
+		    let previousNode = this.get(idx - 1);
+		    let previousNodeNext = previousNode.next;
+		    previousNode.next = newNode;
+		    newNode.next = previousNodeNext;
+		    this.length++;
+		    console.log(this);
+		    return true;
+	    }
+    }
+
+    remove(idx) {
+	    // removes the node at the given index
+	    if (idx < 0 || idx > this.length) return undefined;
+	    if (idx === this.length - 1) {
+		    return this.pop();
+	    }
+	    else if (idx === 0){
+		    return this.shift();
+	    }
+	    else{
+		    let prevNode = this.get(idx - 1);
+		    let deleteNode = this.get(idx);
+		    let deleteNodeNext = deleteNode.next;
+		    prevNode.next = deleteNodeNext;
+		    this.length--;
+		    console.log(this);
+		    return deleteNode.val;
+	    }
+    }
+
+    reverse(){
+	    //reverses a linked list in place
+
+	    //swap the head and the tail is the first step
+	    let tmp = this.head;
+	    this.head = this.tail;
+	    this.tail = tmp;
+
+	    for (let i = 1; i < this.length; i++){
+		    //loop option
+	    }
+
+	    let current = this.head;
+	    while(current){
+		    let next = current.next;
+	    }
+
+    }
 }
 
 const list = new SinglyLinkedList();
@@ -117,4 +180,8 @@ list.push("!");
 list.unshift("Excuse")
 // list.get(4);
 list.set(1, "me");
+list.insert(1, "dude")
+list.insert(0, "mannnn")
+list.remove(0);
+list.remove(1);
 console.log(list)

@@ -110,6 +110,69 @@ class SinglyLinkedList {
     }
     return false;
   }
+
+  insert(idx, value){
+	  // inserts a node in the middle of a list
+	  if (idx < 0 || idx > this.length) return false;
+	  if (idx === this.length) return !!this.push(value);
+	  if (idx === 0) return !!this.unshift(value);
+	  let newNode = new Node(value);
+	  let previous = this.get(idx - 1);
+	  let temp = previous.next;
+	  previous.next = newNode;
+	  newNode.next = temp;
+	  this.length++;
+	  return true;
+  }
+
+  remove(idx){
+	  // removes the node at a given index
+	  if (idx < 0 || idx >= this.length) return undefined;
+	  if (idx === 0) return this.shift();
+	  if (idx === this.length - 1) return this.pop();
+
+	  let previousNode = this.get(idx - 1);
+	  let removed = previousNode.next;
+	  previousNode.next = removed.next;
+	  this.length--;
+	  return removed;
+  }
+
+  // this method will help us to see the list and thus see if it is reversed
+  print(){
+	  let arr = [];
+	  let current = this.head;
+	  while(current){
+		  arr.push(current.val);
+		  current = current.next;
+	  }
+	  console.log(arr);
+  }
+
+  visualize(){
+	  let initString = '';
+	  let current = this.head;
+	  while(current){
+		  initString += `${current.val} --> `;
+		  current = current.next;
+	  }
+	  console.log(initString);
+  }
+
+  reverse(){
+	  let node = this.head;
+	  this.head = this.tail;
+	  this.tail = node;
+          let prev = null;
+	  let next;
+	  for(let i = 0; i < this.length; i++){
+		  next = node.next;
+		  node.next = prev;
+		  prev = node;
+		  node = next;
+	  }
+	  return this;
+  }
 }
 
 const list = new SinglyLinkedList();
@@ -125,4 +188,10 @@ list.unshift("Yooh,")
 list.get(30)
 list.set(1, "bruv");
 
-console.log(list);
+list.insert(1, 234)
+list.remove(1)
+
+list.print();
+list.visualize();
+list.reverse();
+list.visualize();
